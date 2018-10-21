@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        class="com.haulmont.addon.dashboardchart.web.widget.ChartWidgetEdit"
+        messagesPack="com.haulmont.addon.dashboardchart.web.widget">
+    <dsContext>
+        <collectionDatasource id="reportsDs"
+                              allowCommit="false"
+                              class="com.haulmont.reports.entity.Report"
+                              view="report.edit">
+            <query>
+                <![CDATA[select r from report$Report r, in (r.templates) t 
+where t.reportOutputType = 70]]>
+            </query>
+        </collectionDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout>
+        <grid spacing="true"
+              width="100%">
+            <columns>
+                <column flex="1.0"/>
+                <column flex="9.0"/>
+            </columns>
+            <rows>
+                <row>
+                    <label id="reportLabel"
+                           value="msg://chartWidget.report"/>
+                    <lookupField id="reportLookup"
+                                 captionProperty="name"
+                                 optionsDatasource="reportsDs"
+                                 required="true"
+                                 requiredMessage="chartWidget.reportRequires"
+                                 width="100%"/>
+                </row>
+                <row>
+                    <label value="msg://chartWidget.template"/>
+                    <lookupField id="templateLookup"
+                                 captionProperty="name"
+                                 required="true"
+                                 requiredMessage="chartWidget.templateRequired"
+                                 width="100%"/>
+                </row>
+            </rows>
+        </grid>
+    </layout>
+</window>

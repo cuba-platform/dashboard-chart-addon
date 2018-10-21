@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        class="com.haulmont.addon.dashboardchart.web.widget.ChartWidget"
+        messagesPack="com.haulmont.addon.dashboardchart.web.widget">
+    <layout height="100%"
+            spacing="true"
+            width="100%">
+        <vbox height="100%"
+              spacing="true">
+            <label id="errorLabel"
+                   value="msg://chartWidget.viewChartError"
+                   visible="false"/>
+            <groupBox id="chartBox"
+                      height="100%"
+                      spacing="true"/>
+        </vbox>
+    </layout>
+</window>

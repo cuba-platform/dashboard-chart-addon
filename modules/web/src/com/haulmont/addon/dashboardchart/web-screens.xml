@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <screen-config xmlns="http://schemas.haulmont.com/cuba/screens.xsd">
-
+    <screen id="dashboardchart$ChartWidget"
+            template="com/haulmont/addon/dashboardchart/web/widget/chart-widget.xml"/>
+    <screen id="dashboardchart$ChartWidget.edit"
+            template="com/haulmont/addon/dashboardchart/web/widget/chart-widget-edit.xml"/>
 </screen-config>
