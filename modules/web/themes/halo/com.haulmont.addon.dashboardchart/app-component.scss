@@ -1,0 +1,5 @@
+@import "halo-ext";
+
+@mixin com_haulmont_addon_dashboardchart {
+  @include com_haulmont_addon_dashboardchart-halo-ext;
+}
