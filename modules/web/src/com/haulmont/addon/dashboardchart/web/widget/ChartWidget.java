@@ -7,12 +7,15 @@ import com.haulmont.addon.dashboard.model.Widget;
 import com.haulmont.addon.dashboard.web.annotation.DashboardWidget;
 import com.haulmont.addon.dashboard.web.annotation.WidgetParam;
 import com.haulmont.addon.dashboard.web.parametertransformer.ParameterTransformer;
-import com.haulmont.bali.util.ParamsMap;
+import com.haulmont.charts.gui.amcharts.model.charts.AbstractChart;
+import com.haulmont.charts.gui.components.charts.CustomChart;
+import com.haulmont.charts.gui.components.charts.PieChart;
+import com.haulmont.charts.gui.data.MapDataItem;
 import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.LoadContext;
 import com.haulmont.cuba.gui.WindowParam;
 import com.haulmont.cuba.gui.components.AbstractFrame;
-import com.haulmont.cuba.gui.components.GroupBoxLayout;
+import com.haulmont.cuba.gui.components.BoxLayout;
 import com.haulmont.cuba.gui.components.Label;
 import com.haulmont.reports.entity.Report;
 import com.haulmont.reports.entity.ReportOutputType;
@@ -23,6 +26,7 @@ import com.haulmont.yarg.reporting.ReportOutputDocument;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,11 +70,11 @@ public class ChartWidget extends AbstractFrame {
     @WindowParam
     protected UUID templateId;
 
-    @Named("chartBox")
-    protected GroupBoxLayout chartBox;
-
     @Named("errorLabel")
     protected Label errorLabel;
+
+    @Inject
+    protected CustomChart reportJsonChart;
 
     @Override
     public void init(Map<String, Object> params) {
@@ -93,7 +97,7 @@ public class ChartWidget extends AbstractFrame {
         }
         if (report == null || reportTemplate == null) {
             errorLabel.setVisible(true);
-            chartBox.setVisible(false);
+            reportJsonChart.setVisible(false);
             return;
         }
 
@@ -105,16 +109,21 @@ public class ChartWidget extends AbstractFrame {
         ReportOutputDocument document = reportGuiManager.getReportResult(report, widgetParams, reportTemplate.getCode());
 
         if (document.getContent() != null) {
-            try {
-                chartBox.removeAll();
-                openFrame(chartBox, JSON_CHART_SCREEN_ID, ParamsMap.of(CHART_JSON_PARAMETER, new String(document.getContent(), "UTF-8")));
-            } catch (UnsupportedEncodingException e) {
-                throw new RuntimeException(e);
-            }
+            reportJsonChart.setVisible(true);
+            reportJsonChart.setSizeFull();
+            reportJsonChart.setConfiguration(new BasicChart());
+            reportJsonChart.setNativeJson(new String(document.getContent(), StandardCharsets.UTF_8));
         } else {
             errorLabel.setVisible(true);
-            chartBox.setVisible(false);
+            reportJsonChart.setVisible(false);
         }
+    }
+
+    /**
+     * Used for default initialization in
+     * WebChart.CubaAmchartsSceneExt#setupDefaults(AbstractChart)
+     */
+    protected static class BasicChart extends AbstractChart<BasicChart> {
     }
 
 
