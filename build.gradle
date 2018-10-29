@@ -59,6 +59,9 @@ dependencies {
 
 def hsql = 'org.hsqldb:hsqldb:2.2.9'
 
+def dbNameParam = 'dashboardchart'
+def dbTestNameParam = 'dashboardchart-test'
+
 configure([globalModule, coreModule, webModule]) {
     apply(plugin: 'java')
     apply(plugin: 'maven')
@@ -76,6 +79,24 @@ configure([globalModule, coreModule, webModule]) {
 
     artifacts {
         archives sourceJar
+    }
+
+    String checkstyleConfigDir = "${rootProject.projectDir}/config/checkstyle"
+    checkstyle {
+        toolVersion = "6.2"
+        configFile = new File("${checkstyleConfigDir}/checkstyle.xml".toString())
+        configProperties = [
+                'checkstyleConfigDir': checkstyleConfigDir
+        ]
+        reportsDir = new File("${buildDir}/checkstyle".toString())
+        ignoreFailures = false
+    }
+
+    checkstyleMain << {
+        def checkstyleDir = "${project.buildDir}/checkstyle".toString()
+        ant.xslt('in': "$checkstyleDir/main.xml",
+                out: "$checkstyleDir/$project.name-checkstyle.html",
+                style: "$checkstyleConfigDir/checkstyle.xsl")
     }
 }
 
@@ -128,17 +149,50 @@ configure(coreModule) {
     }
 
     task createDb(dependsOn: assembleDbScripts, description: 'Creates local database', type: CubaDbCreation) {
+        dbName = 'dashboard'
         dbms = 'hsql'
         host = 'localhost'
-        dbName = 'dashboardchart'
+        dbName = dbNameParam
         dbUser = 'sa'
         dbPassword = ''
     }
 
     task updateDb(dependsOn: assembleDbScripts, description: 'Updates local database', type: CubaDbUpdate) {
+        dbName = 'dashboard'
         dbms = 'hsql'
         host = 'localhost'
-        dbName = 'dashboardchart'
+        dbName = dbNameParam
+        dbUser = 'sa'
+        dbPassword = ''
+    }
+
+    task startDb(description: 'Starts local HSQLDB server', type: CubaHsqlStart) {
+        dbName = dbNameParam
+    }
+
+    task stopDb(description: 'Stops local HSQLDB server', type: CubaHsqlStop) {
+        dbName = dbNameParam
+    }
+
+    task startTestDb(description: 'Starts local HSQLDB server', type: CubaHsqlStart) {
+        dbName = dbTestNameParam
+    }
+
+    task stopTestDb(description: 'Stops local HSQLDB server', type: CubaHsqlStop) {
+        dbName = dbTestNameParam
+    }
+
+    task removeDb(description: 'Removes local HSQL database', type: Delete) {
+        delete new File("$rootProject.projectDir/data")
+    }
+
+    task killDb(description: 'Kill local HSQLDB server process running on port 9001', type: CubaKillProcess) {
+        port = 9001
+    }
+
+    task createTestDb(dependsOn: assembleDbScripts, description: 'Creates local HSQL database', type: CubaDbCreation) {
+        dbms = 'hsql'
+        dbName = dbTestNameParam
         dbUser = 'sa'
         dbPassword = ''
     }
@@ -216,10 +270,6 @@ configure(webThemesModule) {
         }
     }
 }
-
-
-
-
 
 task undeploy(type: Delete, dependsOn: ":${modulePrefix}-web:cleanConf") {
     delete("$cuba.tomcat.dir/shared")
