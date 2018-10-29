@@ -6,7 +6,9 @@ import com.haulmont.addon.dashboard.model.Parameter;
 import com.haulmont.addon.dashboard.model.Widget;
 import com.haulmont.addon.dashboard.web.annotation.DashboardWidget;
 import com.haulmont.addon.dashboard.web.annotation.WidgetParam;
+import com.haulmont.addon.dashboard.web.events.DashboardEvent;
 import com.haulmont.addon.dashboard.web.parametertransformer.ParameterTransformer;
+import com.haulmont.addon.dashboard.web.widget.RefreshableWidget;
 import com.haulmont.charts.gui.amcharts.model.charts.AbstractChart;
 import com.haulmont.charts.gui.components.charts.CustomChart;
 import com.haulmont.charts.gui.components.charts.PieChart;
@@ -37,7 +39,7 @@ import static com.haulmont.addon.dashboardchart.web.widget.ChartWidget.CAPTION;
 
 
 @DashboardWidget(name = CAPTION, editFrameId = "dashboardchart$ChartWidget.edit")
-public class ChartWidget extends AbstractFrame {
+public class ChartWidget extends AbstractFrame implements RefreshableWidget {
 
     public static final String CAPTION = "Chart";
 
@@ -68,6 +70,10 @@ public class ChartWidget extends AbstractFrame {
 
     @WidgetParam
     @WindowParam
+    protected Boolean refreshAutomatically = false;
+
+    @WidgetParam
+    @WindowParam
     protected UUID templateId;
 
     @Named("errorLabel")
@@ -75,6 +81,8 @@ public class ChartWidget extends AbstractFrame {
 
     @Inject
     protected CustomChart reportJsonChart;
+    private Report report;
+    private ReportTemplate reportTemplate;
 
     @Override
     public void init(Map<String, Object> params) {
@@ -84,17 +92,24 @@ public class ChartWidget extends AbstractFrame {
                 .setId(reportId)
                 .setView("report.edit");
 
-        Report report = dataManager.load(loadContext);
-        ReportTemplate reportTemplate = null;
+        report = dataManager.load(loadContext);
+        reportTemplate = null;
         if (report != null) {
-            List<ReportTemplate> chartTemplates = report.getTemplates().stream().filter(rt -> ReportOutputType.CHART == rt.getReportOutputType()).collect(Collectors.toList());
+            List<ReportTemplate> chartTemplates = report.getTemplates().stream()
+                    .filter(rt -> ReportOutputType.CHART == rt.getReportOutputType())
+                    .collect(Collectors.toList());
             if (templateId != null) {
                 reportTemplate = chartTemplates.stream()
-                        .filter(t -> templateId.equals(t.getId())).findFirst()
+                        .filter(t -> templateId.equals(t.getId()))
+                        .findFirst()
                         .orElse(ReportOutputType.CHART == report.getDefaultTemplate().getReportOutputType() ? report.getDefaultTemplate() : null);
             }
 
         }
+        updateChart();
+    }
+
+    private void updateChart() {
         if (report == null || reportTemplate == null) {
             errorLabel.setVisible(true);
             reportJsonChart.setVisible(false);
@@ -116,6 +131,13 @@ public class ChartWidget extends AbstractFrame {
         } else {
             errorLabel.setVisible(true);
             reportJsonChart.setVisible(false);
+        }
+    }
+
+    @Override
+    public void refresh(DashboardEvent dashboardEvent) {
+        if (refreshAutomatically) {
+            updateChart();
         }
     }
 

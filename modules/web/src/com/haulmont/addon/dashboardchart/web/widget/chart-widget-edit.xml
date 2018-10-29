@@ -41,6 +41,10 @@ where t.reportOutputType = 70]]>
                                  requiredMessage="chartWidget.templateRequired"
                                  width="100%"/>
                 </row>
+                <row>
+                    <label value="msg://chartWidget.refreshAutomatically"/>
+                    <checkBox id="refreshAutomaticallyCheckbox"/>
+                </row>
             </rows>
         </grid>
     </layout>

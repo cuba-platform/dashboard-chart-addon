@@ -5,6 +5,7 @@ import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.LoadContext;
 import com.haulmont.cuba.gui.WindowParam;
 import com.haulmont.cuba.gui.components.AbstractFrame;
+import com.haulmont.cuba.gui.components.CheckBox;
 import com.haulmont.cuba.gui.components.LookupField;
 import com.haulmont.reports.entity.Report;
 import com.haulmont.reports.entity.ReportOutputType;
@@ -28,6 +29,9 @@ public class ChartWidgetEdit extends AbstractFrame {
     @Named("templateLookup")
     protected LookupField templateLookup;
 
+    @Inject
+    private CheckBox refreshAutomaticallyCheckbox;
+
     @WidgetParam
     @WindowParam
     protected UUID reportId;
@@ -35,6 +39,10 @@ public class ChartWidgetEdit extends AbstractFrame {
     @WidgetParam
     @WindowParam
     protected UUID templateId;
+
+    @WidgetParam
+    @WindowParam
+    protected Boolean refreshAutomatically = false;
 
     @Override
     public void init(Map<String, Object> params) {
@@ -80,6 +88,11 @@ public class ChartWidgetEdit extends AbstractFrame {
                 templateLookup.setValue(reportTemplate);
             }
         }
+
+        refreshAutomaticallyCheckbox.setValue(refreshAutomatically);
+        refreshAutomaticallyCheckbox.addValueChangeListener(e -> {
+            refreshAutomatically = (Boolean) e.getValue();
+        });
     }
 
 
