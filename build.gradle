@@ -67,6 +67,7 @@ configure([globalModule, coreModule, webModule]) {
     apply(plugin: 'maven')
     apply(plugin: 'idea')
     apply(plugin: 'cuba')
+    apply(plugin: 'checkstyle')
 
     dependencies {
         testCompile('junit:junit:4.12')
