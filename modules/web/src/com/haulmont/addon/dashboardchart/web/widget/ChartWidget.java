@@ -11,13 +11,10 @@ import com.haulmont.addon.dashboard.web.parametertransformer.ParameterTransforme
 import com.haulmont.addon.dashboard.web.widget.RefreshableWidget;
 import com.haulmont.charts.gui.amcharts.model.charts.AbstractChart;
 import com.haulmont.charts.gui.components.charts.CustomChart;
-import com.haulmont.charts.gui.components.charts.PieChart;
-import com.haulmont.charts.gui.data.MapDataItem;
 import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.LoadContext;
 import com.haulmont.cuba.gui.WindowParam;
 import com.haulmont.cuba.gui.components.AbstractFrame;
-import com.haulmont.cuba.gui.components.BoxLayout;
 import com.haulmont.cuba.gui.components.Label;
 import com.haulmont.reports.entity.Report;
 import com.haulmont.reports.entity.ReportOutputType;
@@ -27,7 +24,6 @@ import com.haulmont.yarg.reporting.ReportOutputDocument;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
@@ -43,8 +39,8 @@ public class ChartWidget extends AbstractFrame implements RefreshableWidget {
 
     public static final String CAPTION = "Chart";
 
-    private final String CHART_JSON_PARAMETER = "chartJson";
-    private final String JSON_CHART_SCREEN_ID = "chart$jsonChart";
+    private final static String CHART_JSON_PARAMETER = "chartJson";
+    private final static String JSON_CHART_SCREEN_ID = "chart$jsonChart";
 
     @Inject
     protected DataManager dataManager;

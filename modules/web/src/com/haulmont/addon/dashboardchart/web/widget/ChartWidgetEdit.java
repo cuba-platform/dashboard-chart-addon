@@ -51,7 +51,9 @@ public class ChartWidgetEdit extends AbstractFrame {
         reportLookup.addValueChangeListener(r -> {
             Report report = (Report) r.getValue();
             if (report != null) {
-                List<ReportTemplate> chartTemplates = report.getTemplates().stream().filter(rt -> ReportOutputType.CHART == rt.getReportOutputType()).collect(Collectors.toList());
+                List<ReportTemplate> chartTemplates = report.getTemplates().stream()
+                        .filter(rt -> ReportOutputType.CHART == rt.getReportOutputType())
+                        .collect(Collectors.toList());
                 templateLookup.setOptionsList(chartTemplates);
                 reportId = report.getId();
                 if (ReportOutputType.CHART == report.getDefaultTemplate().getReportOutputType()) {
@@ -76,11 +78,14 @@ public class ChartWidgetEdit extends AbstractFrame {
 
             Report report = dataManager.load(loadContext);
             if (report != null) {
-                List<ReportTemplate> chartTemplates = report.getTemplates().stream().filter(rt -> ReportOutputType.CHART == rt.getReportOutputType()).collect(Collectors.toList());
+                List<ReportTemplate> chartTemplates = report.getTemplates().stream()
+                        .filter(rt -> ReportOutputType.CHART == rt.getReportOutputType())
+                        .collect(Collectors.toList());
                 ReportTemplate reportTemplate = null;
                 if (templateId != null) {
                     reportTemplate = chartTemplates.stream()
-                            .filter(t -> templateId.equals(t.getId())).findFirst()
+                            .filter(t -> templateId.equals(t.getId()))
+                            .findFirst()
                             .orElse(ReportOutputType.CHART == report.getDefaultTemplate().getReportOutputType() ? report.getDefaultTemplate() : null);
                 }
                 reportLookup.setValue(report);
