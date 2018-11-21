@@ -53,7 +53,7 @@ dependencies {
     appComponent("com.haulmont.cuba:cuba-global:$cubaVersion")
     appComponent("com.haulmont.reports:reports-global:$cubaVersion")
     appComponent("com.haulmont.charts:charts-global:$cubaVersion")
-    appComponent("com.haulmont.addon.dashboard:dashboard-global:2.0-SNAPSHOT")
+    appComponent("com.haulmont.addon.dashboard:dashboard-global:2.0.0")
 
 }
 
