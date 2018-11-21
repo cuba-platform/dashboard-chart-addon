@@ -36,7 +36,8 @@ Component provides charts widget for dashboards. Chart can be configured as repo
 
 ![chart-widget.png](img/chart-widget.png)
 
-###Available widget settings:
+
+### Available widget settings:
 
 ![widget-settings.png](img/widget-settings.png)
 
