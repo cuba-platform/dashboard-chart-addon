@@ -24,10 +24,10 @@ public class ChartWidgetEdit extends AbstractFrame {
     protected DataManager dataManager;
 
     @Named("reportLookup")
-    protected LookupField reportLookup;
+    protected LookupField<Report> reportLookup;
 
     @Named("templateLookup")
-    protected LookupField templateLookup;
+    protected LookupField<ReportTemplate> templateLookup;
 
     @Inject
     private CheckBox refreshAutomaticallyCheckbox;
@@ -49,7 +49,7 @@ public class ChartWidgetEdit extends AbstractFrame {
         super.init(params);
 
         reportLookup.addValueChangeListener(r -> {
-            Report report = (Report) r.getValue();
+            Report report = r.getValue();
             if (report != null) {
                 List<ReportTemplate> chartTemplates = report.getTemplates().stream()
                         .filter(rt -> ReportOutputType.CHART == rt.getReportOutputType())
@@ -65,7 +65,7 @@ public class ChartWidgetEdit extends AbstractFrame {
         });
 
         templateLookup.addValueChangeListener(t -> {
-            ReportTemplate reportTemplate = (ReportTemplate) t.getValue();
+            ReportTemplate reportTemplate = t.getValue();
             if (reportTemplate != null) {
                 templateId = reportTemplate.getId();
             }
@@ -96,7 +96,7 @@ public class ChartWidgetEdit extends AbstractFrame {
 
         refreshAutomaticallyCheckbox.setValue(refreshAutomatically);
         refreshAutomaticallyCheckbox.addValueChangeListener(e -> {
-            refreshAutomatically = (Boolean) e.getValue();
+            refreshAutomatically = e.getValue();
         });
     }
 

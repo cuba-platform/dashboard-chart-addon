@@ -32,7 +32,7 @@
                   ext="zip"
                   name="dashboardchart-web"/>
         <artifact configuration="themes"
-                  name="dashboardchart-web-themes"/>
+                  name="dashboardchart-web" ext="jar"/>
         <property name="cuba.springContextConfig"
                   value="+com/haulmont/addon/dashboardchart/web-spring.xml"/>
         <property name="cuba.dispatcherSpringContextConfig"
@@ -45,8 +45,5 @@
                   value="+com/haulmont/addon/dashboardchart/web-permissions.xml"/>
         <property name="cuba.mainMessagePack"
                   value="+com.haulmont.addon.dashboardchart.web"/>
-    </module>
-    <module name="web-themes">
-        <artifact name="dashboardchart-web-themes"/>
     </module>
 </app-component>

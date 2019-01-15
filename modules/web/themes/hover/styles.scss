@@ -1,0 +1,11 @@
+@import "hover-defaults";
+@import "com.haulmont.addon.dashboardchart/hover-ext-defaults";
+@import "app-components";
+@import "com.haulmont.addon.dashboardchart/hover-ext";
+
+.hover {
+  // include auto-generated app components SCSS
+  @include app_components;
+
+  @include com_haulmont_addon_dashboardchart-hover-ext;
+}
