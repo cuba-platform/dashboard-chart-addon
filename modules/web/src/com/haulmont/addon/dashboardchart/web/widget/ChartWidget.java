@@ -73,7 +73,7 @@ public class ChartWidget extends AbstractFrame implements RefreshableWidget {
     protected UUID templateId;
 
     @Named("errorLabel")
-    protected Label errorLabel;
+    protected Label<String> errorLabel;
 
     @Inject
     protected CustomChart reportJsonChart;
