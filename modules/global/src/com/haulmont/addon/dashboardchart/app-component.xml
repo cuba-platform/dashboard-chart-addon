@@ -1,49 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <app-component xmlns="http://schemas.haulmont.com/cuba/app-component.xsd"
                dependsOn="com.haulmont.reports, com.haulmont.charts, com.haulmont.cuba, com.haulmont.addon.dashboard">
-    <module blocks="*"
-            name="global">
-        <artifact appJar="true"
-                  name="dashboardchart-global"/>
-        <property name="cuba.persistenceConfig"
-                  value="+com/haulmont/addon/dashboardchart/persistence.xml"/>
-        <property name="cuba.metadataConfig"
-                  value="+com/haulmont/addon/dashboardchart/metadata.xml"/>
-        <property name="cuba.viewsConfig"
-                  value="+com/haulmont/addon/dashboardchart/views.xml"/>
+
+    <module name="global" blocks="*">
+        <artifact name="dashboardchart-global" appJar="true"/>
+
+        <property name="cuba.persistenceConfig" value="+com/haulmont/addon/dashboardchart/persistence.xml"/>
+        <property name="cuba.metadataConfig" value="+com/haulmont/addon/dashboardchart/metadata.xml"/>
+        <property name="cuba.viewsConfig" value="+com/haulmont/addon/dashboardchart/views.xml"/>
     </module>
-    <module blocks="core"
-            dependsOn="global"
-            name="core">
-        <artifact appJar="true"
-                  name="dashboardchart-core"/>
-        <property name="cuba.springContextConfig"
-                  value="+com/haulmont/addon/dashboardchart/spring.xml"/>
-        <property name="cuba.mainMessagePack"
-                  value="+com.haulmont.addon.dashboardchart.core"/>
+    <module name="core" dependsOn="global" blocks="core">
+        <artifact name="dashboardchart-core" appJar="true"/>
+        <artifact name="dashboardchart-core" classifier="db" ext="zip" configuration="dbscripts"/>
+
+        <property name="cuba.springContextConfig" value="+com/haulmont/addon/dashboardchart/spring.xml"/>
+        <property name="cuba.mainMessagePack" value="+com.haulmont.addon.dashboardchart.core"/>
     </module>
-    <module blocks="web"
-            dependsOn="global"
-            name="web">
-        <artifact appJar="true"
-                  name="dashboardchart-web"/>
-        <artifact classifier="web"
-                  configuration="webcontent"
-                  ext="zip"
-                  name="dashboardchart-web"/>
-        <artifact configuration="themes"
-                  name="dashboardchart-web" ext="jar"/>
-        <property name="cuba.springContextConfig"
-                  value="+com/haulmont/addon/dashboardchart/web-spring.xml"/>
+    <module name="web" dependsOn="global" blocks="web">
+        <artifact name="dashboardchart-web" appJar="true"/>
+        <artifact name="dashboardchart-web" classifier="web" ext="zip" configuration="webcontent"/>
+        <artifact name="dashboardchart-web" ext="jar" classifier="themes" configuration="themes"/>
+
+        <property name="cuba.springContextConfig" value="+com/haulmont/addon/dashboardchart/web-spring.xml"/>
         <property name="cuba.dispatcherSpringContextConfig"
                   value="+com/haulmont/addon/dashboardchart/web-dispatcher-spring.xml"/>
-        <property name="cuba.windowConfig"
-                  value="+com/haulmont/addon/dashboardchart/web-screens.xml"/>
-        <property name="cuba.menuConfig"
-                  value="+com/haulmont/addon/dashboardchart/web-menu.xml"/>
-        <property name="cuba.permissionConfig"
-                  value="+com/haulmont/addon/dashboardchart/web-permissions.xml"/>
-        <property name="cuba.mainMessagePack"
-                  value="+com.haulmont.addon.dashboardchart.web"/>
+        <property name="cuba.windowConfig" value="+com/haulmont/addon/dashboardchart/web-screens.xml"/>
+        <property name="cuba.menuConfig" value="+com/haulmont/addon/dashboardchart/web-menu.xml"/>
+        <property name="cuba.permissionConfig" value="+com/haulmont/addon/dashboardchart/web-permissions.xml"/>
+        <property name="cuba.mainMessagePack" value="+com.haulmont.addon.dashboardchart.web"/>
     </module>
 </app-component>
