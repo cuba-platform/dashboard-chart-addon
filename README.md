@@ -2,7 +2,7 @@
 
 ## Overview
 
-Dashboard charts addon provides additional charts widget for [dashboard component](https://github.com/cuba-platform/rich-search-addon)
+Dashboard charts addon provides additional charts widget for [dashboard component](https://github.com/cuba-platform/dashboard-addon)
 
 ## Installation
 To add the component to your project, the following steps should be taken:
@@ -13,7 +13,7 @@ To add the component to your project, the following steps should be taken:
 
 3. Click the plus button in the *App components* section of the *Main* tab.
 
-4. Install [dashboard component](https://github.com/cuba-platform/rich-search-addon)
+4. Install [dashboard component](https://github.com/cuba-platform/dashboard-addon)
 
 5. Specify the coordinates of the component in the corresponding field as follows: group:name:version.
    Click *OK* to confirm the operation.
