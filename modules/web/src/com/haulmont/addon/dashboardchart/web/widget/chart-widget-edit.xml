@@ -30,7 +30,7 @@ where t.reportOutputType = 70]]>
                                  captionProperty="name"
                                  optionsDatasource="reportsDs"
                                  required="true"
-                                 requiredMessage="chartWidget.reportRequires"
+                                 requiredMessage="msg://chartWidget.reportRequires"
                                  width="100%"/>
                 </row>
                 <row>
@@ -38,7 +38,7 @@ where t.reportOutputType = 70]]>
                     <lookupField id="templateLookup"
                                  captionProperty="name"
                                  required="true"
-                                 requiredMessage="chartWidget.templateRequired"
+                                 requiredMessage="msg://chartWidget.templateRequired"
                                  width="100%"/>
                 </row>
                 <row>
