@@ -18,12 +18,12 @@ package com.haulmont.addon.dashboardchart.web.widget;
 
 import com.haulmont.addon.dashboard.gui.components.DashboardFrame;
 import com.haulmont.addon.dashboard.model.Dashboard;
-import com.haulmont.addon.dashboard.model.Parameter;
 import com.haulmont.addon.dashboard.model.Widget;
 import com.haulmont.addon.dashboard.web.annotation.DashboardWidget;
 import com.haulmont.addon.dashboard.web.annotation.WidgetParam;
 import com.haulmont.addon.dashboard.web.events.DashboardEvent;
 import com.haulmont.addon.dashboard.web.parametertransformer.ParameterTransformer;
+import com.haulmont.addon.dashboard.web.repository.WidgetRepository;
 import com.haulmont.addon.dashboard.web.widget.RefreshableWidget;
 import com.haulmont.charts.gui.amcharts.model.charts.AbstractChart;
 import com.haulmont.charts.gui.components.charts.CustomChart;
@@ -41,7 +41,6 @@ import com.haulmont.yarg.reporting.ReportOutputDocument;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -66,6 +65,9 @@ public class ChartWidget extends AbstractFrame implements RefreshableWidget {
 
     @Inject
     private ParameterTransformer parameterTransformer;
+
+    @Inject
+    protected WidgetRepository widgetRepository;
 
     @WindowParam
     protected Widget widget;
@@ -128,11 +130,7 @@ public class ChartWidget extends AbstractFrame implements RefreshableWidget {
             return;
         }
 
-        Map<String, Object> widgetParams = new HashMap<>();
-        for (Parameter p : widget.getParameters()) {
-            Object rawValue = parameterTransformer.transform(p.getParameterValue());
-            widgetParams.put(p.getName(), rawValue);
-        }
+        Map<String, Object> widgetParams = widgetRepository.getWidgetParams(widget);
         ReportOutputDocument document = reportGuiManager.getReportResult(report, widgetParams, reportTemplate.getCode());
 
         if (document.getContent() != null) {
