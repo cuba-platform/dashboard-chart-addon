@@ -16,7 +16,7 @@
   -->
 
 <app-component xmlns="http://schemas.haulmont.com/cuba/app-component.xsd"
-               dependsOn="com.haulmont.reports, com.haulmont.charts, com.haulmont.cuba, com.haulmont.addon.dashboard">
+               dependsOn="com.haulmont.reports, com.haulmont.charts, com.haulmont.addon.dashboard">
 
     <module name="global" blocks="*">
         <artifact name="dashboardchart-global" appJar="true"/>
