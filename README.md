@@ -1,8 +1,8 @@
-# Dashboard charts addon
+# Dashboard Chart Add-on
 
 ## Overview
 
-Dashboard charts addon provides additional charts widget for [dashboard component](https://github.com/cuba-platform/dashboard-addon)
+Dashboard Сhart add-on provides additional chart widget for the [Dashboards](https://github.com/cuba-platform/dashboard-addon) component.
 
 ## Installation
 To add the component to your project, the following steps should be taken:
@@ -13,7 +13,7 @@ To add the component to your project, the following steps should be taken:
 
 3. Click the plus button in the *App components* section of the *Main* tab.
 
-4. Install [dashboard component](https://github.com/cuba-platform/dashboard-addon)
+4. Install [Dashboard](https://github.com/cuba-platform/dashboard-addon) component.
 
 5. Specify the coordinates of the component in the corresponding field as follows: group:name:version.
    Click *OK* to confirm the operation.
@@ -34,7 +34,7 @@ To add the component to your project, the following steps should be taken:
 
 ## Usage
 
-Component provides charts widget for dashboards. Chart can be configured as report in Reports browser.
+Component provides chart widget for dashboards. Chart can be configured as report in Reports browser.
 
 ![chart-widget.png](img/chart-widget.png)
 
@@ -43,6 +43,6 @@ Component provides charts widget for dashboards. Chart can be configured as repo
 
 ![widget-settings.png](img/widget-settings.png)
 
-- **Report** - report which contains chart template
-- **Template** - chart template
-- **Refresh automatically** - if checked then chart will be updated automatically on dashboard update 
+- **Report** - report which contains chart template.
+- **Template** - chart template.
+- **Refresh automatically** - if checked then chart will be updated automatically on dashboard update. 
