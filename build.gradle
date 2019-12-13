@@ -16,7 +16,7 @@
  */
 
 buildscript {
-    ext.cubaVersion = '7.1.0'
+    ext.cubaVersion = rootProject.hasProperty('cubaVersion') ? rootProject['cubaVersion'] : '7.2-SNAPSHOT'
     repositories {
         
         mavenLocal()
@@ -61,7 +61,7 @@ apply(plugin: 'addon-gradle-plugin')
 cuba {
     artifact {
         group = 'com.haulmont.addon.dashboardchart'
-        version = "1.2"
+        version = "1.3"
         isSnapshot = true
     }
     tomcat {
@@ -89,7 +89,7 @@ dependencies {
     appComponent("com.haulmont.cuba:cuba-global:$cubaVersion")
     appComponent("com.haulmont.reports:reports-global:$cubaVersion")
     appComponent("com.haulmont.charts:charts-global:$cubaVersion")
-    appComponent("com.haulmont.addon.dashboard:dashboard-global:3.1.1")
+    appComponent("com.haulmont.addon.dashboard:dashboard-global:3.2-SNAPSHOT")
 }
 
 def hsql = 'org.hsqldb:hsqldb:2.4.1'
