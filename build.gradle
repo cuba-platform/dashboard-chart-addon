@@ -89,7 +89,7 @@ dependencies {
     appComponent("com.haulmont.cuba:cuba-global:$cubaVersion")
     appComponent("com.haulmont.reports:reports-global:$cubaVersion")
     appComponent("com.haulmont.charts:charts-global:$cubaVersion")
-    appComponent("com.haulmont.addon.dashboard:dashboard-global:3.2-SNAPSHOT")
+    appComponent("com.haulmont.addon.dashboard:dashboard-global:3.2.0")
 }
 
 def hsql = 'org.hsqldb:hsqldb:2.4.1'
