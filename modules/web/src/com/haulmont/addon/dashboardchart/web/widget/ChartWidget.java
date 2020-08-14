@@ -116,7 +116,8 @@ public class ChartWidget extends AbstractFrame implements RefreshableWidget {
                 reportTemplate = chartTemplates.stream()
                         .filter(t -> templateId.equals(t.getId()))
                         .findFirst()
-                        .orElse(ReportOutputType.CHART == report.getDefaultTemplate().getReportOutputType() ? report.getDefaultTemplate() : null);
+                        .orElse(ReportOutputType.CHART == report.getDefaultTemplate().getReportOutputType() ?
+                                report.getDefaultTemplate() : null);
             }
 
         }
@@ -149,6 +150,10 @@ public class ChartWidget extends AbstractFrame implements RefreshableWidget {
         if (refreshAutomatically) {
             updateChart();
         }
+    }
+
+    public CustomChart getReportChart() {
+        return reportJsonChart;
     }
 
     /**
